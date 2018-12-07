@@ -1,0 +1,28 @@
+{
+  "name": "proofofexistence",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cnusrini/proofofexistence.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cnusrini/proofofexistence/issues"
+  },
+  "homepage": "https://github.com/cnusrini/proofofexistence#readme",
+  "dependencies": {
+    "next": "^4.1.4",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.83.0",
+    "web3": "^1.0.0-beta.26"
+  }
+}
