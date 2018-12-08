@@ -4,6 +4,8 @@ language: node_js
 before_script:
   - npm install -g ganache-cli
   - npm install -g truffle
+  - ./startGanache.sh
+
 
 script:
   - ganache-cli -p 8545 > /dev/null &
