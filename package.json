@@ -19,6 +19,7 @@
   "homepage": "https://github.com/cnusrini/proofofexistence#readme",
   "dependencies": {
     "next": "^4.1.4",
+    "next-routes": "^1.4.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "semantic-ui-css": "^2.4.1",

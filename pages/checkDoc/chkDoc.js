@@ -8,11 +8,21 @@ import web3 from '../../proofOFExistenceSC/web3'
 class checkDOC extends Component{
   state = {
     inputHandler: '',
-    errMessage: ''
+    errMessage: '',
+    loading: false
   };
-
-  onSubmit = async (event) => {
+  handleChange = async (event) => {
     event.preventDefault();
+
+    { this.setState({inputHandler: event.target.value})};
+    console.log('in onChange' + event.target.value);
+  } ;
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log('in onsubmit');
+    { this.setState({inputHandler: event.target.value})};
+    this.formValidation(inputHandler);
+    this.setState({loading: true, errMessage:''});
     try{
       const accounts = await web3.eth.getAccounts();
       await contractInstance.methods.notarize(this.state.inputHandler).send({
@@ -23,26 +33,39 @@ class checkDOC extends Component{
 
   }
 
+  this.setState({loading:false});
+
+  };
+  formValidation = async (event, inputHandler) =>{
+    event.preventDefault();
+    console.log('in formValidation');
   };
   render(){
     return (
         <Layout>
           <Header as='h2' textAlign='center'> Verify handler for Proof Of Existence </Header>
           <Segment padded>
-            <Form  onSubmit={this.onSubmit} error={!!this.state.errMessage}>
+            <Form  onSubmit={this.handleSubmit} >
               <Form.Field>
                 <Input icon='truck' iconPosition='left' placeholder='enter text to verify'
-                value = {this.state.inputHandler}
-                onChange= {event => this.setState({inputHandler: event.target.value})}
+                type='text'
+                value={this.state.inputHandler}
+                onChange={this.handleChange}
                 />
               </Form.Field>
-              <Message error header='verify your text' content={this.state.errMessage}/>
+              <Message negative >
+                  Please provide case sensitive value to perform ProofOFExistence
+                     ex: value != Value
+              </Message>
+
               <Divider/>
-              <Button fluid type='submit' color= 'teal' >Verify</Button>
+              <Button loading={this.state.loading} compact fluid type='submit' color='teal' >
+              Verify
+              </Button>
             </Form>
           </Segment>
         </Layout>
-    )
+    );
   }
 
 }
