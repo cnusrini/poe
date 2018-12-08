@@ -6,7 +6,7 @@ before_script:
   - npm install -g truffle
 
 script:
-  - ganache-cli &
+  - ganache-cli -p 8545 > /dev/null &
   - sleep 5
   - truffle compile
   - truffle migrate --network ganache --reset
