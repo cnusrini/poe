@@ -3,7 +3,8 @@ import { Button, Divider, Form, Header, Icon, Input, Message, Segment } from 'se
 
 import Layout from '../../components/Layout';
 import contractInstance from '../../proofOFExistenceSC/contract';
-import web3 from '../../proofOFExistenceSC/web3'
+import web3 from '../../proofOFExistenceSC/web3' ;
+import { Link, Router } from '../../routes' ;
 
 class checkDOC extends Component{
   state = {
@@ -14,31 +15,34 @@ class checkDOC extends Component{
   handleChange = async (event) => {
     event.preventDefault();
 
-    { this.setState({inputHandler: event.target.value})};
+    this.setState({inputHandler: event.target.value});
     console.log('in onChange' + event.target.value);
-  } ;
+  };
   handleSubmit = async (event) => {
     event.preventDefault();
     console.log('in onsubmit');
-    { this.setState({inputHandler: event.target.value})};
-    this.formValidation(inputHandler);
-    this.setState({loading: true, errMessage:''});
+    if(this.formValidation()){
+      console.log('in if');
+    }
+    else {
+      console.log('in else');
+    }
+    this.setState({loading:true, errMessage:''});
     try{
       const accounts = await web3.eth.getAccounts();
       await contractInstance.methods.notarize(this.state.inputHandler).send({
       from : accounts[2]
     });
-  } catch(error){
+    Router.pushRoute('/userid');
+    } catch(error){
     this.setState({errMessage: error.message});
-
-  }
-
-  this.setState({loading:false});
-
+    }
+    this.setState({loading:false});
   };
-  formValidation = async (event, inputHandler) =>{
-    event.preventDefault();
-    console.log('in formValidation');
+  formValidation = async (event) => {
+    let isFormValid = true;
+
+    return isFormValid;
   };
   render(){
     return (
@@ -53,13 +57,12 @@ class checkDOC extends Component{
                 onChange={this.handleChange}
                 />
               </Form.Field>
-              <Message negative >
+              <Message negative>
                   Please provide case sensitive value to perform ProofOFExistence
                      ex: value != Value
               </Message>
-
               <Divider/>
-              <Button loading={this.state.loading} compact fluid type='submit' color='teal' >
+              <Button compact fluid type='submit' color='teal' >
               Verify
               </Button>
             </Form>
