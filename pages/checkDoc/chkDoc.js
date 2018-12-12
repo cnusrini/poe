@@ -21,28 +21,42 @@ class checkDOC extends Component{
   handleSubmit = async (event) => {
     event.preventDefault();
     console.log('in onsubmit');
+
     if(this.formValidation()){
-      console.log('in if');
+      console.log('in if' );
     }
     else {
-      console.log('in else');
+      console.log('in else')
     }
     this.setState({loading:true, errMessage:''});
     try{
       const accounts = await web3.eth.getAccounts();
       await contractInstance.methods.notarize(this.state.inputHandler).send({
       from : accounts[2]
+
     });
-    Router.pushRoute('/userid');
+
+    Router.pushRoute('/checkDoc/Transaction');
     } catch(error){
     this.setState({errMessage: error.message});
     }
     this.setState({loading:false});
   };
   formValidation = async (event) => {
-    let isFormValid = true;
+    let localInputHandler = this.state.inputHandler;
+    let isFormValid = false;
 
-    return isFormValid;
+      if(localInputHandler.length == 0 ){
+
+        return isFormValid;
+
+      }
+      else{
+        isFormValid = true;
+        return isFormValid;
+      }
+
+      console.log('in iflocalInpurHandler at return' + isFormValid)
   };
   render(){
     return (

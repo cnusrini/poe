@@ -12,7 +12,7 @@ export default () =>{
         <Link route='/checkDoc/chkDoc'>
           <a className='item'>chkDOC</a>
         </Link >
-        <Link route='/'>
+        <Link route='/checkDoc/Explorer'>
           <a className='item'>Explorer</a>
         </Link >
 
