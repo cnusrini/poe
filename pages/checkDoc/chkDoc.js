@@ -27,6 +27,12 @@ class checkDOC extends Component{
         if(isFormValid){
           console.log('in if');
           const accounts = await web3.eth.getAccounts();
+          let poeornot = await contractInstance.methods.checkDocument(this.state.inputHandler).send({
+            from: accounts[2]
+          });
+          let poeornot1 = await contractInstance.methods.checkDocument(this.state.inputHandler).call();
+          console.log(poeornot);
+          console.log(poeornot1);
           await contractInstance.methods.notarize(this.state.inputHandler).send({
           from : accounts[2]
           });
